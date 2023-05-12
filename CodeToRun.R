@@ -21,7 +21,7 @@ library(RPostgres)
 library(PatientProfiles)
 
 # database metadata and connection details -----
-db.name<-"CPRDGold"
+db.name<-"..."
 
 # Set output folder location -----
 # the path to a folder where the results from this analysis will be saved
@@ -36,7 +36,7 @@ user<-Sys.getenv("DB_USER")
 password<- Sys.getenv("DB_PASSWORD")
 port<-Sys.getenv("DB_PORT") 
 host<-Sys.getenv("DB_HOST")
-server_dbi<-Sys.getenv("DB_SERVER_cdmgold202007_dbi")
+server_dbi<-"..."
 
 
 # Specify cdm_reference via DBI connection details -----
@@ -56,7 +56,7 @@ cdm_database_schema<-"public"
 
 # The name of the schema that contains the vocabularies 
 # (often this will be the same as cdm_database_schema)
-vocabulary_database_schema<-cdm_database_schema
+vocabulary_database_schema <- cdm_database_schema
 
 # The name of the schema where results tables will be created 
 results_database_schema<-"results"
@@ -64,7 +64,7 @@ results_database_schema<-"results"
 # Name of outcome table in the result table where the outcome cohorts will be stored
 # Note, if there is an existing table in your results schema with the same names
 # it will be overwritten 
-outcome_table_stem <-"dn_youngonsetcrc"
+outcome_table_stem <-"youngonsetcrc_pharmetrics"
 
 
 # create cdm reference ---- do not change this ----
