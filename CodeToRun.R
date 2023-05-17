@@ -66,21 +66,9 @@ results_database_schema<-"results"
 # it will be overwritten 
 outcome_table_stem <-"youngonsetcrc_pharmetrics"
 
-
-# create cdm reference ---- do not change this ----
-cdm <- CDMConnector::cdm_from_con(con = db, 
-                                  cdm_schema = cdm_database_schema,
-                                  write_schema = results_database_schema)
-
-
-# to check whether the DBI connection is correct, 
-# running the next line should give you a count of your person table
-cdm$person %>% 
-  tally()
-
 # Run the study ------
 source(here("RunStudy.R"))
-# after the study is run you should have a zip folder in your output folder to share
+# after the study is run you should have a folder in your output folder to share
 
 # Disconnect from the database
 #db(disconnect)

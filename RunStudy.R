@@ -1,6 +1,4 @@
 
-# table names----
-outcome_table_name <-paste0(outcome_table_stem,"_o")
 
 # output files ----
 if (!file.exists(output.folder)){
@@ -19,12 +17,22 @@ info(logger, 'INSTANTIATING STUDY COHORTS')
 source(here("1_InstantiateCohorts","InstantiateStudyCohorts.R"))
 info(logger, 'GOT STUDY COHORTS')
 
+# table names----
+outcome_table_name <-paste0(outcome_table_stem,"_o")
+
+
+# create cdm reference ---- do not change this ----
+cdm <- CDMConnector::cdm_from_con(con = db, 
+                                  cdm_schema = cdm_database_schema,
+                                  write_schema = results_database_schema,
+                                  cohort_tables = outcome_table_name)
+
 
 # create dataframe
-working_participants <- cdm$dn_youngonsetcrc_o %>% 
+working_participants <- cdm[[outcome_table_name]] %>% 
   addDemographics(cdm) %>% 
   filter(prior_history >= 365) %>% 
-  filter(age >= 18) %>% collect() # 2998
+  filter(age >= 18) %>% collect() #
 
 
 #create the year of diagnosis 
