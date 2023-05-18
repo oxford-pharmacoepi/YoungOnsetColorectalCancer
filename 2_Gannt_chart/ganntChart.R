@@ -53,83 +53,43 @@ plan::plot(g,
 line <- 1.75 # adjust this
 mtext("Months", side=1, line=line, at = 0.75)
 
-points(as.POSIXct("2001-01-01"), 100)
 
-lines(gantt$start[3]+c(-30*86400,0), rep(10, 2)) 
+install.packages("remotes")
+remotes::install_github("giocomai/ganttrify")
+install.packages("devtools")
+devtools::install_github("BlakeRMills/MetBrewer")
 
+library(ganttrify)
+library(here)
+library(readr)
+library(dplyr)
+library(MetBrewer)
+library(RColorBrewer)
 
-data(gantt)
-summary(gantt)
-#'
-#' # 1. Simple plot
-plot(gantt)
-#'
-#' # 2. Plot with two events
-event.label <- c("Proposal", "AGU")
-event.time <- c("2008-01-28", "2008-12-10")
-plot(gantt, event.label=event.label,event.time=event.time)
-#'
-#' # 3. Control x axis (months, say)
-plot(gantt,labels=paste("M",1:6,sep=""))
-#'
-#' # 4. Control task colours
-plot(gantt,
-     col.done=c("black", "red", rep("black", 10)),
-     col.notdone=c("lightgray", "pink", rep("lightgray", 10)))
+gannt_fellowship <- read_csv(here("Github", "YoungOnsetColorectalCancer","2_Gannt_chart", "gannt_chart.csv"))
 
-plot(gantt, event.time=event.time, event.label=event.label,
-     lwd.eventLine=1:2, lty.eventLine=1:2,
-     col.eventLine=c("pink", "lightblue"),
-     col.event=c("red", "blue"), font.event=1:2, cex.event=1:2)
+gannt_fellowship <- gannt_fellowship %>% 
+  mutate(across(everything(), as.character))
 
-#' # 7. Demonstrate zero-time item (which becomes a heading)
-gantt[["description"]][1] <- "Preliminaries"
-gantt[["end"]][1] <- gantt[["start"]][1]
-plot(gantt, ylabel=list(font=2, justification=0))
-
-plot(gantt, arrows=c("right","left","left","right"))
-
-
-
-library(plan)
-arrive <- as.POSIXct("2012-09-05")
-month <- 28 * 86400
-year <- 12 * month
-leave <- arrive + 4 * year
-startT1 <- arrive
-endT1 <- startT1 + 4 * month
-startT2 <- endT1 + 1
-endT2 <- startT2 + 4 * month
-startQE <- arrive + 9 * month
-endQE <- arrive + 12 * month
-QEabsoluteEnd <- arrive + 15 * month
-startProposal <- arrive + 15 * month # for example
-endProposal <- arrive + 20 * month
-startThesisWork <- arrive + 2 * month # assumes no thesis work until 2 months in
-endThesisWork <- leave - 4 * month
-startWriting <- leave - 36 * month
-endWriting <- leave
-
-g <- as.gantt(key=1:8, c("Academic",
-                         "Term 1 classes",
-                         "Term 2 classes",
-                         "Qualifying Examination",
-                         "Research",
-                         "Proposal Defence",
-                         "Thesis Work",
-                         "Paper/Thesis Writing"),
-              c(startT1, startT1, startT2, startQE, startProposal, startProposal,
-                startThesisWork, startWriting),
-              c(startT1, endT1, endT2, endQE, startProposal, endProposal,
-                endThesisWork, endWriting),
-              done=rep(0, 7))
-plot(g, xlim=c(arrive, leave),
-     ylabel=list(font=c(2,rep(1,3),2), justification=c(0,rep(1,3),0)))
+ganttrify(project = gannt_fellowship,
+          size_text_relative = 0.8,
+          month_breaks = 2,
+          alpha_wp = 0,
+          mark_years = TRUE,
+          #axis_text_align = "left",
+          #show_vertical_lines = FALSE,
+          hide_wp = FALSE,
+          project_start_date = "2024-01",
+          #size_wp = 7,
+          #month_date_label = FALSE,
+          #x_axis_position = "bottom",
+          font_family = "Roboto Condensed",
+         # colour_palette  = c("#00468BFF", "#ED0000FF", "#42B540FF", "#0099B4FF","#925E9FFF", "blue"))
+         #colour_palette  = c("#6ACCEA", "#00FFB8", "#B90000", "#6C919C"))
+         #colour_palette = MetBrewer::met.brewer("Signac", n=6, type="discrete"))
+         colour_palette = brewer.pal(6,"Set2"))
 
 
 
-library(plan)
-data(gantt)
-plot(gantt)
-points(as.POSIXct("2008-01-01"), 10)
-lines(gantt@data$start[3]+c(-30*86400,0), rep(10, 2)) 
+ggplot2::ggsave(filename = here("Github", "YoungOnsetColorectalCancer","2_Gannt_chart", "my_gantt.png"), width = 7, height = 4, bg = "white")
+
