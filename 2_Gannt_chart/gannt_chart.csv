@@ -1,0 +1,28 @@
+wp,activity,start_date,end_date
+Study 1: Descriptives,Apply for data access,1,1.5
+Study 1: Descriptives,Descriptive analysis,2,4.5
+Study 1: Descriptives,Writeup study 1,5,6
+Study 2: Identifying Subtypes,Clustering analysis,7,11
+Study 2: Identifying Subtypes,Validation of clusters,12,14
+Study 2: Identifying Subtypes,Writeup study 2,15,16
+Study 3: Mendelian randomization,Genetic instrument selection,17,18
+Study 3: Mendelian randomization,MR analysis,19,23
+Study 3: Mendelian randomization,Writeup study 3,24,25
+Study 4: Improving diagnostics,Validation of existing tools,26,29
+Study 4: Improving diagnostics,Extending existing tools,30,33
+Study 4: Improving diagnostics,Writeup study 4,34,35
+Training & Development,Project management,5,5.25
+Training & Development,Leadership,8,8.25
+Training & Development,Mendelian randomization course,15,15.25
+Engagement & Dissemination,PPI,1,1.5
+Engagement & Dissemination,PPI ,12,12.5
+Engagement & Dissemination,PPI  ,23,23.5
+Engagement & Dissemination,PPI    ,34,34.5
+Engagement & Dissemination,Publication submissions,7,7.25
+Engagement & Dissemination,Publication submissions ,17,17.25
+Engagement & Dissemination,Publication submissions  ,26,26.25
+Engagement & Dissemination,Publication submissions    ,36,36.25
+Engagement & Dissemination,Conference attendance,14,14.25
+Engagement & Dissemination,Conference attendance ,18,18.25
+Engagement & Dissemination,Conference attendance  ,27,27.25
+Engagement & Dissemination,Conference attendance    ,31,31.25
