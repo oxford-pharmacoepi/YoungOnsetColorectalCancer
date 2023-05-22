@@ -12,11 +12,6 @@ logger <- create.logger()
 logfile(logger) <- log_file
 level(logger) <- "INFO"
 
-# instantiate study cohorts ----
-info(logger, 'INSTANTIATING STUDY COHORTS')
-source(here("1_InstantiateCohorts","InstantiateStudyCohorts.R"))
-info(logger, 'GOT STUDY COHORTS')
-
 # table names----
 outcome_table_name <-paste0(outcome_table_stem,"_o")
 
@@ -26,6 +21,12 @@ cdm <- CDMConnector::cdm_from_con(con = db,
                                   cdm_schema = cdm_database_schema,
                                   write_schema = results_database_schema,
                                   cohort_tables = outcome_table_name)
+
+# instantiate study cohorts ----
+info(logger, 'INSTANTIATING STUDY COHORTS')
+source(here("1_InstantiateCohorts","InstantiateStudyCohorts.R"))
+info(logger, 'GOT STUDY COHORTS')
+
 
 
 # create dataframe
