@@ -1,9 +1,9 @@
 #https://github.com/dankelley/plan
 
-install.packages("remotes")
-remotes::install_github("giocomai/ganttrify")
-install.packages("devtools")
-devtools::install_github("BlakeRMills/MetBrewer")
+# install.packages("remotes")
+# remotes::install_github("giocomai/ganttrify")
+# install.packages("devtools")
+# devtools::install_github("BlakeRMills/MetBrewer")
 
 library(plan)
 library(ganttrify)
