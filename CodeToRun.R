@@ -19,8 +19,7 @@ library(CDMConnector)
 library(ggplot2)
 library(RPostgres)
 library(PatientProfiles)
-library(plan)
-library(DiagrammeR)
+#library(plan)
 
 # database metadata and connection details -----
 db.name<-"..."

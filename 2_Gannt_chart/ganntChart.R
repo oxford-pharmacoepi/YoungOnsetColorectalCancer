@@ -1,4 +1,17 @@
+#https://github.com/dankelley/plan
+
+install.packages("remotes")
+remotes::install_github("giocomai/ganttrify")
+install.packages("devtools")
+devtools::install_github("BlakeRMills/MetBrewer")
+
 library(plan)
+library(ganttrify)
+library(here)
+library(readr)
+library(dplyr)
+library(MetBrewer)
+library(RColorBrewer)
 
 g <- new("gantt")
 g <- ganttAddTask(g, "Study 1: Characterisation")
@@ -53,18 +66,6 @@ plan::plot(g,
 line <- 1.75 # adjust this
 mtext("Months", side=1, line=line, at = 0.75)
 
-
-install.packages("remotes")
-remotes::install_github("giocomai/ganttrify")
-install.packages("devtools")
-devtools::install_github("BlakeRMills/MetBrewer")
-
-library(ganttrify)
-library(here)
-library(readr)
-library(dplyr)
-library(MetBrewer)
-library(RColorBrewer)
 
 gannt_fellowship <- read_csv(here("Github", "YoungOnsetColorectalCancer","2_Gannt_chart", "gannt_chart.csv"))
 

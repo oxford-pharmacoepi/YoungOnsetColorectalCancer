@@ -1,5 +1,4 @@
 
-
 # output files ----
 if (!file.exists(output.folder)){
   dir.create(output.folder, recursive = TRUE)}
@@ -28,25 +27,47 @@ source(here("1_InstantiateCohorts","InstantiateStudyCohorts.R"))
 info(logger, 'GOT STUDY COHORTS')
 
 
-
 # create dataframe
 working_participants <- cdm[[outcome_table_name]] %>% 
   addDemographics(cdm) %>% 
   filter(prior_history >= 365) %>% 
   filter(age >= 18) %>% collect() #
 
+# add in total number of people under 50 in database
+cdm$denominator <- generateDenominatorCohortSet(
+  cdm = cdm, 
+  startDate = as.Date("2000-01-01"),
+  endDate = as.Date("2019-12-31"),
+  ageGroup = list(c(18,50)),
+  sex = c("Both"),
+  daysPriorHistory = 365,
+  verbose = TRUE
+)
+
+whole_data_n <- cdm$denominator %>% 
+  addDemographics(cdm) %>% 
+  tally() %>% 
+  collect() 
+
+whole_data_n <- whole_data_n %>% 
+  mutate(var="Total N in database < 50") %>% 
+  rename(val = "n") %>% 
+  mutate(val = as.character(val))
 
 #create the year of diagnosis 
 working_participants <- working_participants %>% 
   mutate(year_of_diagnosis = lubridate::year(cohort_start_date))
 
 working_table <- bind_rows(
+  
   working_participants %>% 
     summarise(val = as.character(n())) %>% 
     mutate(var="N"),
+  
   working_participants %>% 
     summarise(val = as.character(median(age)))  %>% 
     mutate(var="Median age"),
+  
   working_participants %>% 
     summarise(val = as.character(median(prior_history)))  %>% 
     mutate(var="Median prior history (days)"),
@@ -87,10 +108,19 @@ working_table <- bind_rows(
     group_by(year_of_diagnosis) %>%
     summarise(val = as.character(n())) %>% 
     mutate(var= as.character(year_of_diagnosis)) %>% 
-    select(-year_of_diagnosis)
+    select(-year_of_diagnosis),
+  
+  whole_data_n
+
   
   
 )
+
+
+
+
+
+
 
 write_csv(working_table, here::here(paste0("Results/",db.name,"/YOCRC_demographics",db.name,".csv")))
 
