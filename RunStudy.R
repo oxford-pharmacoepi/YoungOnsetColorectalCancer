@@ -18,8 +18,7 @@ outcome_table_name <-paste0(outcome_table_stem,"_o")
 # create cdm reference ---- do not change this ----
 cdm <- CDMConnector::cdm_from_con(con = db, 
                                   cdm_schema = cdm_database_schema,
-                                  write_schema = results_database_schema,
-                                  cohort_tables = outcome_table_name)
+                                  write_schema = results_database_schema)
 
 # instantiate study cohorts ----
 info(logger, 'INSTANTIATING STUDY COHORTS')
@@ -37,7 +36,7 @@ working_participants <- cdm[[outcome_table_name]] %>%
 cdm$denominator <- generateDenominatorCohortSet(
   cdm = cdm, 
   startDate = as.Date("2000-01-01"),
-  endDate = as.Date("2019-12-31"),
+  endDate = as.Date("2022-06-01"),
   ageGroup = list(c(18,50)),
   sex = c("Both"),
   daysPriorHistory = 365,

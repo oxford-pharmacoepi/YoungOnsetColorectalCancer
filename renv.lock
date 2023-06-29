@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.3.0",
+    "Version": "4.2.3",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -11,10 +11,10 @@
   "Packages": {
     "CDMConnector": {
       "Package": "CDMConnector",
-      "Version": "0.5.1",
+      "Version": "1.0.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "e236278d29a4fa21765f328b4a8a3f4a",
+      "Hash": "41f9500b3ff924dfba7f8563b7523e40",
       "Requirements": [
         "DBI",
         "checkmate",
@@ -22,6 +22,7 @@
         "dbplyr",
         "dplyr",
         "fs",
+        "generics",
         "glue",
         "jsonlite",
         "lifecycle",
@@ -31,6 +32,7 @@
         "readr",
         "rlang",
         "stringr",
+        "tidyr",
         "tidyselect",
         "waldo",
         "withr"
